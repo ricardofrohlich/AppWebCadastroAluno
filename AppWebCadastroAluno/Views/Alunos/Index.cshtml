@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AppWebCadastroAluno.Models.Aluno>
+
+@{
+    ViewData["Title"] = "Cadastro de alunos";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Inserir Aluno</a> 
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco.Rua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco.Cidade)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AlunoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AlunoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AlunoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="form-group">
+    <label for="txtNome">Filtrar por nome: </label>
+    <input type="text" id="txtNome" class="form-control" />
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var $rows = $('tbody tr');
+            
+            $('#txtNome').on('input', function () {
+                var filter = $(this).val().trim().toUpperCase();
+                
+                $rows.hide().filter(function () {
+                    return $(this).text().toUpperCase().includes(filter);
+                }).show();
+            });
+        });
+    </script>
+}

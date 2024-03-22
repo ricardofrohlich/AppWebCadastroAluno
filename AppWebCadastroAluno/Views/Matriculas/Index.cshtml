@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AppWebCadastroAluno.Models.Matricula>
+
+@{
+    ViewData["Title"] = "Matricula do aluno";
+}
+
+<h1>Matricula do aluno</h1>
+
+<p>
+    <a asp-action="Create">Inserir matrícula</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AlunoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aluno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CursoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Curso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnoIngresso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderBy(m => m.Aluno.Nome)) {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlunoId)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.Aluno.Nome)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CursoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnoIngresso)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MatriculaId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.MatriculaId">Detalhar</a> |
+                <a asp-action="Delete" asp-route-id="@item.MatriculaId">Excluir</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
